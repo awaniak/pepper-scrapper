@@ -1,4 +1,4 @@
-package scrapper;
+package ppscr.scrapper;
 
 public class PepperScrapper {
 

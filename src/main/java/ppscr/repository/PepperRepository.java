@@ -1,4 +1,4 @@
-package repository;
+package ppscr.repository;
 
 public class PepperRepository {
 

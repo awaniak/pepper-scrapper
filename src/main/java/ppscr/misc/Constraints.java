@@ -1,4 +1,4 @@
-package misc;
+package ppscr.misc;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

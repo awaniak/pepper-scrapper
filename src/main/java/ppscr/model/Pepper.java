@@ -1,9 +1,9 @@
-package model;
+package ppscr.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import misc.Constraints;
+import ppscr.misc.Constraints;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 @Document(indexName = Constraints.ElasticIndices.PEPPER_INDEX)
