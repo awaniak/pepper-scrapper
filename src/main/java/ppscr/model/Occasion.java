@@ -3,6 +3,7 @@ package ppscr.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
 import ppscr.misc.Constraints;
 import org.springframework.data.elasticsearch.annotations.Document;
 
@@ -10,8 +11,10 @@ import org.springframework.data.elasticsearch.annotations.Document;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Pepper {
+public class Occasion {
 
+    @Id
+    String id;
     String title;
     Double price;
     Integer temp;
