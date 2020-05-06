@@ -2,8 +2,8 @@
 
 Scrapper for pepper website https://www.pepper.pl/
 
-App extracts title, price and temperature from deals and save them in elasticsearch 
-Kibana provides visualization for elasticsearch data
+App extracts title, price and temperature from deals and save them in elasticsearch.
+Kibana provides visualization for elasticsearch data.
 
 **Set up**
 
@@ -17,3 +17,5 @@ Kibana provides visualization for elasticsearch data
 
 `GET [host]/ppscr/scrap (e.g. http://localhost:10000/ppscr/scrap)`
 To scrap data from pepper service and populate elastic
+
+![Kibana example](https://i.imgur.com/OG6gd7R.png)
