@@ -3,19 +3,19 @@ package ppscr.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ppscr.repository.OccasionRepository;
+import ppscr.repository.DealRepository;
 import ppscr.scrapper.PepperScrapper;
 
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class OccasionService {
+public class DealService {
 
     private final PepperScrapper pepperScrapper;
-    private final OccasionRepository occasionRepository;
+    private final DealRepository dealRepository;
 
     public void scrapPepperAndSaveResults(int pageToScrap) {
         for (int pageNum = 1; pageNum <= pageToScrap; pageNum++) {
-            occasionRepository.saveAll(pepperScrapper.scrapPepperPage(pageNum));
+            dealRepository.saveAll(pepperScrapper.scrapPepperPage(pageNum));
         }
     }
 

@@ -11,7 +11,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Occasion {
+public class Deal {
 
     @Id
     String id;

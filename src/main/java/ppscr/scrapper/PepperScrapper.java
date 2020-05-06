@@ -2,7 +2,6 @@ package ppscr.scrapper;
 
 import static java.lang.String.format;
 
-import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -12,39 +11,39 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Component;
-import ppscr.exception.OccasionScrapperException;
+import ppscr.exception.DealScrapperException;
 import ppscr.exception.ScrapperException;
 import ppscr.misc.Constraints;
-import ppscr.model.Occasion;
+import ppscr.model.Deal;
 
 @Component
 @Slf4j
 public class PepperScrapper {
 
-    public List<Occasion> scrapPepperPage(int pageNum) {
+    public List<Deal> scrapPepperPage(int pageNum) {
         try {
-            List<Occasion> occasions = new LinkedList<>();
+            List<Deal> deals = new LinkedList<>();
             Document document = Jsoup.connect(format("%s?page=%d", Constraints.PEPPER_ADDRESS, pageNum)).get();
 
             Elements rawOccasions = document.getElementsByTag("article");
             for (Element rawOccasion : rawOccasions) {
-                Optional<Occasion> mappedOccasion = mapRawOccasionToOccasion(rawOccasion);
-                mappedOccasion.ifPresent(occasions::add);
+                Optional<Deal> mappedOccasion = mapRawOccasionToOccasion(rawOccasion);
+                mappedOccasion.ifPresent(deals::add);
             }
-            return occasions;
+            return deals;
         } catch (Exception e) {
             throw new ScrapperException(e);
         }
     }
 
-    private Optional<Occasion> mapRawOccasionToOccasion(Element rawOccasion) {
+    private Optional<Deal> mapRawOccasionToOccasion(Element rawOccasion) {
         try {
-            Occasion occasion = new Occasion();
-            occasion.setId(rawOccasion.id());
-            occasion.setTitle((getTitle(rawOccasion)));
-            occasion.setPrice(getPrice(rawOccasion));
-            occasion.setTemp(getTemp(rawOccasion));
-            return Optional.of(occasion);
+            Deal deal = new Deal();
+            deal.setId(rawOccasion.id());
+            deal.setTitle((getTitle(rawOccasion)));
+            deal.setPrice(getPrice(rawOccasion));
+            deal.setTemp(getTemp(rawOccasion));
+            return Optional.of(deal);
         } catch (Exception e) {
             log.warn("Cannot scrap occasion", e);
             return Optional.empty();
@@ -54,7 +53,7 @@ public class PepperScrapper {
     private String getTitle(Element rawOccasion) {
         Elements elements = rawOccasion.getElementsByClass("thread-title--card");
         if (elements.size() != 1) {
-            throw new OccasionScrapperException("Cannot get title for occasion with id: " + rawOccasion.id());
+            throw new DealScrapperException("Cannot get title for occasion with id: " + rawOccasion.id());
         }
         return elements.first().attr("title");
     }
@@ -62,7 +61,7 @@ public class PepperScrapper {
     private Double getPrice(Element rawOccasion) {
         Elements elements = rawOccasion.getElementsByClass("thread-price");
         if (elements.size() != 1) {
-            throw new OccasionScrapperException("Cannot get price for occasion with id: " + rawOccasion.id());
+            throw new DealScrapperException("Cannot get price for occasion with id: " + rawOccasion.id());
         }
         String value = elements.first().text();
         if (value.equals("ZA DARMO")) {
@@ -76,7 +75,7 @@ public class PepperScrapper {
     private Integer getTemp(Element rawOccasion) {
         Elements elements = rawOccasion.getElementsByClass("vote-temp");
         if (elements.size() != 1) {
-            throw new OccasionScrapperException("Cannot get temp for occasion with id: " + rawOccasion.id());
+            throw new DealScrapperException("Cannot get temp for occasion with id: " + rawOccasion.id());
         }
         String value = elements.get(0).text();
         value = value.replaceAll("\\D+","");

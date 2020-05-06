@@ -2,7 +2,7 @@
 
 Scrapper for pepper website https://www.pepper.pl/
 
-App extracts title, price and temperature from occasions and save them in elasticsearch 
+App extracts title, price and temperature from deals and save them in elasticsearch 
 Kibana provides visualization for elasticsearch data
 
 **Set up**
